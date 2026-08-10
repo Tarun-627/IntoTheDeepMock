@@ -1,4 +1,4 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Claws;
 
-public class HorizontalClawGrip {
+public class Horizontal_Intake {
 }
