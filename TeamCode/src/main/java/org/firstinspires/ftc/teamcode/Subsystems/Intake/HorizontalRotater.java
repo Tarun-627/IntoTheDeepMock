@@ -6,12 +6,12 @@ import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class HorizontalClawRotate {
+public class HorizontalRotater {
     public enum State {NORMAL, TRANSFER};
     private final Servo HorizontalClawRotate;
 
     State state = State.NORMAL;
-    public HorizontalClawRotate(HardwareMap hardwareMap){
+    public HorizontalRotater(HardwareMap hardwareMap){
         HorizontalClawRotate = hardwareMap.get(Servo.class, "Horizontal Claw Rotate");
     }
 
@@ -23,6 +23,7 @@ public class HorizontalClawRotate {
                 break;
             case TRANSFER:
                 HorizontalClawRotate.setPosition(1.0); // Assumed for position for claw servo rotator
+                break;
 
         }
     }

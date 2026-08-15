@@ -23,6 +23,7 @@ public class VerticalClawRotate {
                 break;
             case VTRANSFER:
                 VerticalClawRotate.setPosition(-1.0); // Assumed for position for claw servo rotator
+                break;
 
         }
     }
@@ -30,7 +31,7 @@ public class VerticalClawRotate {
     public Command vnormal(){
         return instant(() -> setState(State.VNORMAL)).requiring(this);
     }
-    public Command vtransfer(){
+    public Command vrotated(){
         return instant(() -> setState(State.VTRANSFER)).requiring(this);
     }
 }

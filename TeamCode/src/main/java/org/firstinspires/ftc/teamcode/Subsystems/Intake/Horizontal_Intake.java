@@ -1,34 +1,47 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import static com.pedropathing.ivy.commands.Commands.instant;
 import com.pedropathing.ivy.Command;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 public class Horizontal_Intake {
-    public enum State {GRAB, OPEN};
-    private final Servo HorizontalClaw;
 
-    State state = State.OPEN;
+    public enum State {INTAKE, OUTTAKE, IDLE};
+
+    private final DcMotorEx intake;
+    private State state = State.IDLE;
     public Horizontal_Intake(HardwareMap hardwareMap){
-        HorizontalClaw = hardwareMap.get(Servo.class, "HorizontalClaw");
+        intake = hardwareMap.get(DcMotorEx.class, "horizontal intake");
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
     public void setState (State newState){
         state = newState;
         switch (newState){
-            case GRAB:
-                HorizontalClaw.setPosition(0.7); // Assumed grip position for claw servo
+            case INTAKE:
+                intake.setPower(1.0);
                 break;
-            case OPEN:
-                HorizontalClaw.setPosition(0.2); // // Assumed open position for claw servo
-
+            case OUTTAKE:
+                intake.setPower(-1.0);
+                break;
+            case IDLE:
+                intake.setPower(0);
+                break;
         }
     }
 
-    public Command hgrab(){
-        return instant(() -> setState(State.GRAB)).requiring(this);
+    public Command in(){
+        return instant(() -> setState(State.INTAKE)).requiring(this);
     }
-    public Command hrelease(){
-        return instant(() -> setState(State.OPEN)).requiring(this);
+    public Command out(){
+        return instant(() -> setState(State.OUTTAKE)).requiring(this);
+    }
+    public Command idle(){
+        return instant(() -> setState(State.IDLE)).requiring(this);
     }
 }

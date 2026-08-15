@@ -4,12 +4,12 @@ import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Vertical_Intake {
+public class Vertical_Claw {
     public enum State {VGRAB, VDEPOSIT};
     private final Servo VerticalClaw;
 
     State state = State.VDEPOSIT;
-    public Vertical_Intake(HardwareMap hardwareMap){
+    public Vertical_Claw(HardwareMap hardwareMap){
         VerticalClaw = hardwareMap.get(Servo.class, "VerticalClaw");
     }
 
@@ -21,6 +21,7 @@ public class Vertical_Intake {
                 break;
             case VDEPOSIT:
                 VerticalClaw.setPosition(0.2); // Assumed deposit position for claw servo
+                break;
 
         }
     }
