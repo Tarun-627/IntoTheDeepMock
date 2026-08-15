@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Horizontal_Intake {
+public class ExtendoIntake {
 
     public enum State {INTAKE, OUTTAKE, IDLE};
 
     private final DcMotorEx intake;
     private State state = State.IDLE;
-    public Horizontal_Intake(HardwareMap hardwareMap){
-        intake = hardwareMap.get(DcMotorEx.class, "horizontal intake");
+    public ExtendoIntake(HardwareMap hardwareMap){
+        intake = hardwareMap.get(DcMotorEx.class, "Extendo Intake");
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -35,13 +35,14 @@ public class Horizontal_Intake {
         }
     }
 
-    public Command in(){
+    //extendo intake/outake/idle
+    public Command eintake(){
         return instant(() -> setState(State.INTAKE)).requiring(this);
     }
-    public Command out(){
+    public Command eouttake(){
         return instant(() -> setState(State.OUTTAKE)).requiring(this);
     }
-    public Command idle(){
+    public Command eidle(){
         return instant(() -> setState(State.IDLE)).requiring(this);
     }
 }
