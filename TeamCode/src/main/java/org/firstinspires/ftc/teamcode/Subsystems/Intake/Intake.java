@@ -35,14 +35,14 @@ public class Intake {
         }
     }
 
-    //extendo intake/outake/idle
-    public Command eintake(){
+    //intake/outake/idle
+    public Command intake(){
         return instant(() -> setState(State.INTAKE)).requiring(this);
     }
-    public Command eouttake(){
+    public Command outtake(){
         return instant(() -> setState(State.OUTTAKE)).requiring(this);
     }
-    public Command eidle(){
+    public Command idle(){
         return instant(() -> setState(State.IDLE)).requiring(this);
     }
 }
