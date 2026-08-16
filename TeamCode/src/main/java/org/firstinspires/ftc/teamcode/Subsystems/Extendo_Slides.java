@@ -18,12 +18,17 @@ public class Extendo_Slides {
         ExtendoM1 = hardwareMap.get(DcMotorEx.class, "Extendo Motor 1");
         ExtendoM1.setDirection(DcMotorSimple.Direction.REVERSE);
         ExtendoM1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ExtendoM1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ExtendoM1.setTargetPosition(1000); // assumed full extension amount for horizontal slides
+        ExtendoM1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ExtendoM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         ExtendoM2 = hardwareMap.get(DcMotorEx.class, "Extendo Motor 2");
         ExtendoM2.setDirection(DcMotorSimple.Direction.REVERSE);
         ExtendoM2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ExtendoM2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ExtendoM2.setTargetPosition(1000);
+        ExtendoM2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ExtendoM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
     }
 

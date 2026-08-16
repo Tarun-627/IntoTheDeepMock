@@ -24,10 +24,10 @@ public class Intake {
         state = newState;
         switch (newState){
             case INTAKE:
-                intake.setPower(1.0);
+                intake.setPower(-1.0);
                 break;
             case OUTTAKE:
-                intake.setPower(-1.0);
+                intake.setPower(1.0);
                 break;
             case IDLE:
                 intake.setPower(0);

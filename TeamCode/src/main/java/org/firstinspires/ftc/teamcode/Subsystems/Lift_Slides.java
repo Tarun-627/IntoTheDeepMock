@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Lift_Slides {
 
-    public enum State {BASE, LOWBOX, HIGHBOX, SPECIMEN}; // different heights lift slides need to reach
+    public enum State {BASE, LOWBOX, HIGHBOX, SPECIMEN, SPECIMENLOW}; // different heights lift slides need to reach
 
     private final DcMotorEx LiftM1; // lift motor 1
 
@@ -19,7 +19,9 @@ public class Lift_Slides {
     private final int BASE_POS = 0;
     private final int LOWBOX_POS = 1500;
     private final int HIGHBOX_POS = 3000;
-    private final int SPECIMEN_POS = 900;
+    private final int SPECIMEN_POS = 2000;
+    private final int SPECIMENLOW_POS = 1000;
+
     public Lift_Slides(HardwareMap hardwareMap){
         LiftM1 = hardwareMap.get(DcMotorEx.class, "Lift Motor 1");
         LiftM1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -78,6 +80,16 @@ public class Lift_Slides {
                 LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
+            case SPECIMENLOW:
+                // motor 1
+                LiftM1.setTargetPosition(SPECIMENLOW_POS);
+                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LiftM1.setPower(1.0);
+                // motor 2
+                LiftM2.setTargetPosition(SPECIMENLOW_POS);
+                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LiftM2.setPower(1.0);
+                break;
         }
     }
     public Command base(){
@@ -91,6 +103,9 @@ public class Lift_Slides {
     }
     public Command specimen(){
         return instant(() -> setState(State.SPECIMEN)).requiring(this);
+    }
+    public Command specimenlow(){
+        return instant(() -> setState(State.SPECIMENLOW)).requiring(this);
     }
 
 

@@ -19,10 +19,10 @@ public class IntakePivot {
         state = newState;
         switch (newState){
             case NORMAL:
-                intakepivot.setPosition(-1.0); // Assumed for position for claw servo rotator
+                intakepivot.setPosition(1.0); // Assumed for position for claw servo rotator
                 break;
             case PIVOT:
-                intakepivot.setPosition(1.0); // Assumed for position for claw servo rotator
+                intakepivot.setPosition(-1.0); // Assumed for position for claw servo rotator
                 break;
 
         }
