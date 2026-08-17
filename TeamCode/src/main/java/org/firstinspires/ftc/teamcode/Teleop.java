@@ -211,7 +211,7 @@ public class Teleop extends OpMode {
         if (gamepad1.yWasPressed()) {
             Scheduler.schedule(ScoreTop);
             Scheduler.execute();
-        }
+         }
 
         if (gamepad1.dpadUpWasPressed()) {
             Scheduler.schedule(ScoreSpecimenHigh);
