@@ -25,16 +25,16 @@ public class Extendo_Slides {
         state = newState;
         switch (newState){
             case RETRACT:
-                ExtendoM.setPower(-1.0);
                 ExtendoM.setTargetPosition(0);
+                ExtendoM.setPower(-1.0);
                 break;
             case EXTEND:
-                ExtendoM.setPower(1.0);
                 ExtendoM.setTargetPosition(1000); // assumed full extension amount for horizontal slides
+                ExtendoM.setPower(1.0);
                 break;
             case TRANSFER:
-                ExtendoM.setPower(-1.0);
                 ExtendoM.setTargetPosition(100); // assumed full extension amount for horizontal slides
+                ExtendoM.setPower(-1.0);
                 break;
         }
     }

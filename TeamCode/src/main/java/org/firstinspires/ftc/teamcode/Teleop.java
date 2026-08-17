@@ -89,7 +89,7 @@ public class Teleop extends OpMode {
         // Commands
 
         // Score the artifact for the TopBox
-        Command ScoreTop = sequential(
+         ScoreTop = sequential(
                 parallel (
                         intake.intake(),
                         slides.extend()
@@ -105,7 +105,7 @@ public class Teleop extends OpMode {
         );
 
         // Score the artifact for the bottom box
-        Command ScoreBottom = sequential(
+        ScoreBottom = sequential(
                 parallel (
                         intake.intake(),
                         slides.extend()
@@ -121,7 +121,7 @@ public class Teleop extends OpMode {
         );
 
         // Score a specimen artifact
-        Command ScoreSpecimenHigh = sequential(
+         ScoreSpecimenHigh = sequential(
                 parallel (
                         intake.intake(),
                         slides.extend()
@@ -137,7 +137,7 @@ public class Teleop extends OpMode {
                 armclaw.armclawrelease()
         );
 
-        Command ScoreSpecimenLow = sequential(
+         ScoreSpecimenLow = sequential(
                 parallel (
                         intake.intake(),
                         slides.extend()
@@ -153,7 +153,7 @@ public class Teleop extends OpMode {
                 armclaw.armclawrelease()
         );
 
-        Command ScoreInitialize = parallel( // Get ready to execute any score command
+        ScoreInitialize = parallel( // Get ready to execute any score command
                 intake.idle(),
                 intakepivot.intakeinitial(),
                 armclaw.armclawrelease(),
@@ -162,7 +162,7 @@ public class Teleop extends OpMode {
 
         );
 
-        Command Climb = sequential( // Get ready to execute any score command
+        Climb = sequential( // Get ready to execute any score command
                 liftslides.highbox(), // high box is assumed to be the same height as the high rung
                 waitMs(3000), // wait for driver to clip robot to rung
                 liftslides.base() // retract slides
