@@ -46,6 +46,17 @@ public class Teleop extends OpMode {
     // Lift Slides Define
     private Lift_Slides liftslides;
 
+    // Commands Define
+    private Command ScoreTop;
+    private Command ScoreBottom;
+    private Command ScoreSpecimenHigh;
+    private Command ScoreSpecimenLow;
+    private Command ScoreInitialize;
+    private Command Climb;
+
+
+
+
     @Override
     public void init() {
 
@@ -74,6 +85,90 @@ public class Teleop extends OpMode {
 
         // Lift Slides Init
         liftslides = new Lift_Slides(hardwareMap);
+
+        // Commands
+
+        // Score the artifact for the TopBox
+        Command ScoreTop = sequential(
+                parallel (
+                        intake.intake(),
+                        slides.extend()
+                ),
+                waitMs(5500),
+                slides.transfer(),
+                intakepivot.intakepivoted(),
+                armclaw.armclawgrab(),
+                liftslides.highbox(),
+                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
+                armclawpivot.armclawpivoted(),
+                armclaw.armclawrelease()
+        );
+
+        // Score the artifact for the bottom box
+        Command ScoreBottom = sequential(
+                parallel (
+                        intake.intake(),
+                        slides.extend()
+                ),
+                waitMs(5500),
+                slides.transfer(),
+                intakepivot.intakepivoted(),
+                armclaw.armclawgrab(),
+                liftslides.lowbox(),
+                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
+                armclawpivot.armclawpivoted(),
+                armclaw.armclawrelease()
+        );
+
+        // Score a specimen artifact
+        Command ScoreSpecimenHigh = sequential(
+                parallel (
+                        intake.intake(),
+                        slides.extend()
+                ),
+                waitMs(5500),
+                slides.transfer(),
+                intakepivot.intakepivoted(),
+                armclaw.armclawgrab(),
+                liftslides.specimen(),
+                // wait until the slides are full extended and press right trigger for pivot and release
+                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
+                armclawpivot.armclawpivoted(),
+                armclaw.armclawrelease()
+        );
+
+        Command ScoreSpecimenLow = sequential(
+                parallel (
+                        intake.intake(),
+                        slides.extend()
+                ),
+                waitMs(5500),
+                slides.transfer(),
+                intakepivot.intakepivoted(),
+                armclaw.armclawgrab(),
+                liftslides.specimenlow(),
+                // wait until the slides are full extended and press right trigger for pivot and release
+                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
+                armclawpivot.armclawpivoted(),
+                armclaw.armclawrelease()
+        );
+
+        Command ScoreInitialize = parallel( // Get ready to execute any score command
+                intake.idle(),
+                intakepivot.intakeinitial(),
+                armclaw.armclawrelease(),
+                armclawpivot.armclawnormal(),
+                liftslides.base()
+
+        );
+
+        Command Climb = sequential( // Get ready to execute any score command
+                liftslides.highbox(), // high box is assumed to be the same height as the high rung
+                waitMs(3000), // wait for driver to clip robot to rung
+                liftslides.base() // retract slides
+
+        );
+
     }
 
     @Override
@@ -105,88 +200,6 @@ public class Teleop extends OpMode {
         rightFront.setPower(rightFrontPower * SpeedMultiplier);
         leftBack.setPower(leftBackPower * SpeedMultiplier);
         rightBack.setPower(rightBackPower * SpeedMultiplier);
-
-        // Score the artifact for the TopBox
-        Command ScoreTop = sequential(
-                parallel (
-                        intake.intake(),
-                        slides.extend()
-                ),
-                waitMs(5500),
-                slides.retract(),
-                intakepivot.intakepivoted(),
-                armclaw.armclawgrab(),
-                liftslides.highbox(),
-                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
-                armclawpivot.armclawpivoted(),
-                armclaw.armclawrelease()
-        );
-
-        // Score the artifact for the bottom box
-        Command ScoreBottom = sequential(
-                parallel (
-                        intake.intake(),
-                        slides.extend()
-                ),
-                waitMs(5500),
-                slides.retract(),
-                intakepivot.intakepivoted(),
-                armclaw.armclawgrab(),
-                liftslides.lowbox(),
-                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
-                armclawpivot.armclawpivoted(),
-                armclaw.armclawrelease()
-        );
-
-        // Score a specimen artifact
-        Command ScoreSpecimenHigh = sequential(
-                parallel (
-                        intake.intake(),
-                        slides.extend()
-                ),
-                waitMs(5500),
-                slides.retract(),
-                intakepivot.intakepivoted(),
-                armclaw.armclawgrab(),
-                liftslides.specimen(),
-                // wait until the slides are full extended and press right trigger for pivot and release
-                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
-                armclawpivot.armclawpivoted(),
-                armclaw.armclawrelease()
-        );
-
-        Command ScoreSpecimenLow = sequential(
-                parallel (
-                        intake.intake(),
-                        slides.extend()
-                ),
-                waitMs(5500),
-                slides.retract(),
-                intakepivot.intakepivoted(),
-                armclaw.armclawgrab(),
-                liftslides.specimenlow(),
-                // wait until the slides are full extended and press right trigger for pivot and release
-                waitUntil(() -> gamepad1.rightTriggerWasPressed()),
-                armclawpivot.armclawpivoted(),
-                armclaw.armclawrelease()
-        );
-
-
-        Command ScoreInitialize = sequential( // Get ready to execute any score command
-                intake.idle(),
-                intakepivot.intakeinitial(),
-                armclaw.armclawrelease(),
-                armclawpivot.armclawnormal(),
-                liftslides.base()
-
-        );
-
-        Command Climb = sequential( // Get ready to execute any score command
-                liftslides.highbox(), // high box is assumed to be the same height as the high rung
-                waitMs(3000), // wait for driver to clip robot to rung
-                liftslides.base() // retract slides
-
-        );
 
 
 

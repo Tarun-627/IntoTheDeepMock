@@ -27,14 +27,13 @@ public class Lift_Slides {
         LiftM1.setDirection(DcMotorSimple.Direction.REVERSE);
         LiftM1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftM1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LiftM1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         LiftM2 = hardwareMap.get(DcMotorEx.class, "Lift Motor 2");
         LiftM2.setDirection(DcMotorSimple.Direction.REVERSE);
         LiftM2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftM2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LiftM2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void setState (State newState){
@@ -43,51 +42,41 @@ public class Lift_Slides {
             case BASE:
                 // motor 1
                 LiftM1.setTargetPosition(BASE_POS);
-                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM1.setPower(1.0);
                 // motor 2
                 LiftM2.setTargetPosition(BASE_POS);
-                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
             case LOWBOX:
                 // motor 1
                 LiftM1.setTargetPosition(LOWBOX_POS);
-                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM1.setPower(1.0);
                 // motor 2
                 LiftM2.setTargetPosition(LOWBOX_POS);
-                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
             case HIGHBOX:
                 // motor 1
                 LiftM1.setTargetPosition(HIGHBOX_POS);
-                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM1.setPower(1.0);
                 // motor 2
                 LiftM2.setTargetPosition(HIGHBOX_POS);
-                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
             case SPECIMEN:
                 // motor 1
                 LiftM1.setTargetPosition(SPECIMEN_POS);
-                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM1.setPower(1.0);
                 // motor 2
                 LiftM2.setTargetPosition(SPECIMEN_POS);
-                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
             case SPECIMENLOW:
                 // motor 1
                 LiftM1.setTargetPosition(SPECIMENLOW_POS);
-                LiftM1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM1.setPower(1.0);
                 // motor 2
                 LiftM2.setTargetPosition(SPECIMENLOW_POS);
-                LiftM2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LiftM2.setPower(1.0);
                 break;
         }
