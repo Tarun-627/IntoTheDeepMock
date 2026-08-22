@@ -4,8 +4,10 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.CommandBuilder;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.pedro.PedroCommands.*;
 import static org.firstinspires.ftc.teamcode.PedroPathing.Tuning.follower;
@@ -19,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakePivot;
 import org.firstinspires.ftc.teamcode.Subsystems.Lift_Slides;
 
-
+@Autonomous
 public class BlueLowBoxAuto extends OpMode {
 
     // ArmClaw Define
@@ -42,7 +44,7 @@ public class BlueLowBoxAuto extends OpMode {
 
     private final Pose startPos = new Pose(103.32441, 33.3974358, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
     private final Pose grabPos = new Pose(70.35562, 49.848383, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
-    private final Pose scorePos = new Pose(60, 84, Math.toRadians(135)); // random positions based upon pedro pathing visualizer for decode
+    private final Pose scorePos = new Pose(106.722, 30.762, Math.toRadians(135)); // random positions based upon pedro pathing visualizer for decode
 
     private CommandBuilder autoRoutine;
 
@@ -94,6 +96,7 @@ public class BlueLowBoxAuto extends OpMode {
                         intake.intake(),
                         slides.extend()
                 ),
+                waitMs(1000),
                 slides.transfer(),
                 intakepivot.intakepivoted(),
                 armclaw.armclawgrab(),

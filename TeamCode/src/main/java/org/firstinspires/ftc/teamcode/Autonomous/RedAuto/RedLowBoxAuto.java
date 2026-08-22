@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.BlueAuto;
+package org.firstinspires.ftc.teamcode.Autonomous.RedAuto;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.CommandBuilder;
@@ -21,9 +21,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakePivot;
 import org.firstinspires.ftc.teamcode.Subsystems.Lift_Slides;
 
-
 @Autonomous
-public class BlueHighBoxAuto extends OpMode {
+public class RedLowBoxAuto extends OpMode {
 
     // ArmClaw Define
     private ArmClaw armclaw;
@@ -54,23 +53,23 @@ public class BlueHighBoxAuto extends OpMode {
     @Override
     public void init() {
 
-         PathChain grabArtifact, scoreArtifact;
+        PathChain grabArtifact, scoreArtifact;
 
 
-         grabArtifact = follower.pathBuilder()
-                    .addPath(new BezierLine(startPos, grabPos))
-                    .setLinearHeadingInterpolation(startPos.getHeading(), grabPos.getHeading())
-                    .build();
+        grabArtifact = follower.pathBuilder()
+                .addPath(new BezierLine(startPos, grabPos))
+                .setLinearHeadingInterpolation(startPos.getHeading(), grabPos.getHeading())
+                .build();
 
-         scoreArtifact = follower.pathBuilder()
-                    .addPath(new BezierLine(grabPos, scorePos))
-                    .setLinearHeadingInterpolation(grabPos.getHeading(), scorePos.getHeading())
-                    .build();
+        scoreArtifact = follower.pathBuilder()
+                .addPath(new BezierLine(grabPos, scorePos))
+                .setLinearHeadingInterpolation(grabPos.getHeading(), scorePos.getHeading())
+                .build();
 
 
-         final Pose startPos = new Pose(103.32441, 33.3974358, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
-         final Pose grabPos = new Pose(70.35562, 49.848383, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
-         final Pose scorePos = new Pose(106.722, 30.762, Math.toRadians(135)); // random positions based upon pedro pathing visualizer for decode
+        final Pose startPos = new Pose(37.858974358974365, 33.3974358, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
+        final Pose grabPos = new Pose(59.344, 59.344, Math.toRadians(90)); // random positions based upon pedro pathing visualizer for decode
+        final Pose scorePos = new Pose(21.417, 19.750, Math.toRadians(45)); // random positions based upon pedro pathing visualizer for decode
 
 
         // ArmClaw Init
@@ -103,7 +102,7 @@ public class BlueHighBoxAuto extends OpMode {
                 armclaw.armclawgrab(),
                 parallel(
                         follow(follower, scoreArtifact),
-                        liftslides.highbox()
+                        liftslides.lowbox()
 
                 ),
                 armclawpivot.armclawpivoted(),
