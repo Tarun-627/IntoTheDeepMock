@@ -47,12 +47,12 @@ public class Teleop extends OpMode {
     private Lift_Slides liftslides;
 
     // Commands Define
-    private Command ScoreTop;
-    private Command ScoreBottom;
-    private Command ScoreSpecimenHigh;
-    private Command ScoreSpecimenLow;
-    private Command ScoreInitialize;
-    private Command Climb;
+    public static Command ScoreTop;
+    public static Command ScoreBottom;
+    public static Command ScoreSpecimenHigh;
+    public static Command ScoreSpecimenLow;
+    public static Command ScoreInitialize;
+    public static Command Climb;
 
 
 
